@@ -1,11 +1,17 @@
 var express     = require('express')
-  , body-parser = require('body-parser');
+  , bodyParser  = require('body-parser');
 
 app = express();
 
-app.set('view-engine', 'ejs');
+app.set('view engine', 'ejs');
 
-app.get('/', function(response, request) {
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/public'));
+
+var db = require("./models/index.js");
+
+
+app.get('/', function(req, res) {
     res.render('index');
 });
 
