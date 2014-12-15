@@ -27,6 +27,12 @@ app.use(function(req, res, next) {
     next();
 })
 
+app.use('*', function(req, res, next) {
+    var alerts = req.flash();
+    res.locals.alerts = alerts;
+    next();
+});
+
 var db = require("./models/index.js");
 
 app.get('/', function(req, res) {
