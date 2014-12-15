@@ -7,21 +7,23 @@ var express     = require('express')
   , debug       = require('debug');
 
 app = express();
+debug('>> Cranking up theCollector!');
 
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/public'));
-
 app.use(session({
     secret: process.env.session_salt,
     resave: false,
     saveUninitialized: true
 }));
+app.use(flash());
 
 var db = require("./models/index.js");
 
 app.get('/', function(req, res) {
+    debug('>> Routing to /');
     var key = process.env.comic_vine_api_key;
     var searchURL = "http://www.comicvine.com/api/issues/?format=json&sort=id&api_key=" + key;
     res.render('index', {'searchURL': searchURL});
