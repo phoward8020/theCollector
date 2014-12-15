@@ -5,8 +5,6 @@ module.exports = {
 
     post_signup : function(req, res) {
         debug('>> Routing to /auth/signup (POST)');
-        // res.send('req.body.email: ', req.body.email);
-
         db.user.findOrCreate(
         {
             where: {
@@ -35,7 +33,10 @@ module.exports = {
             };
             res.redirect('/');
         });
+    },  // << End 'post_signup'
 
-    }
+    post_login : function(req, res) {
+        res.send('Got to post_login route.');
+    }   // << End 'post_login'
 
 }
