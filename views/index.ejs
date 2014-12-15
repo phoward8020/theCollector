@@ -1,21 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>The Collector</title>
-</head>
-<body>
-    <h1>Under Construction</h1>
-</body>
-// Signup Form
-<form action="signup" method="post">
-    <input type="text">
-    <input type="password">
-    <input type="submit">
-</form>
+<% include partials/header.ejs %>
 
-// Login Form
-<form action="login" method="post">
+    <div class="container">
+        <h1>The Collector <small>(Under Construction)</small></h1>
+        <!-- Signup Form -->
+        <h2>Create An Account</h2>
+        <form action="signup" method="post" action="auth/login">
+            <input type="text" class="form-control" placeholder="Your Email" name="email">
+            <input type="password" class="form-control" placeholder="Choose a password" name="password">
+            <input type="submit" class="btn btn-primary" placeholder="" value="Sign Me Up!">
+        </form>
+
+        <!-- Login Form -->
+        <h2>Log In</h2>
+        <form action="login" method="post">
+            <input type="text" class="form-control" placeholder="Your Email" name="email">
+            <input type="password" class="form-control" placeholder="Choose a password" name="password">
+            <input type="submit" class="btn btn-primary" placeholder="" value="Log Me In!">
+        </form>
+    </div>
     
-</form>
-</html>
+<% include partials/footer.ejs %>
