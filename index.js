@@ -20,6 +20,13 @@ app.use(session({
 }));
 app.use(flash());
 
+app.use(function(req, res, next) {
+    req.getUser = function() {
+        return req.session.user || false;
+    }
+    next();
+})
+
 var db = require("./models/index.js");
 
 app.get('/', function(req, res) {
