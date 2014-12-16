@@ -50,7 +50,7 @@ module.exports = {
                         req.session.user = {
                             id: userObj.id,
                             email: userObj.email,
-                            name: userObj.name
+                            name: userObj.name_first
                         };
                         res.redirect("/");
                     } else {

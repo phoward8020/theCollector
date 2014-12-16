@@ -1,6 +1,7 @@
 var express             = require('express')
+  , request             = require('request')
   , expressControllers  = require('express-controller')
-  , db                  = require("./models/index.js")
+  , db                  = require('./models/index.js')
   , session             = require('express-session')
   , bcrypt              = require('bcrypt')
   , bodyParser          = require('body-parser')

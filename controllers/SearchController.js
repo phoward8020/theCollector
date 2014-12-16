@@ -2,18 +2,8 @@ var debug       = require('debug')
   , request     = require('request');
 
 module.exports = {
-    get_index : function(req, res) {
-        debug('>> Routing to /');
-        
-        var user = req.getUser();
-        if (typeof searchResults != 'undefined') {
-            res.send(searchResults);
-        }
-        // res.send(req.body);
-        res.render('index', {'user':user});
-    },
-
     post_index : function(req, res) {
+        debug('>> Routing to search/');
         var baseURL = 'http://www.comicvine.com/api'
         var searchField = 'issues';
         var filterField = 'name'
@@ -37,12 +27,12 @@ module.exports = {
         request(searchURL, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 var results = {
-                    'results': JSON.parse(body).results,
-                    'error': JSON.parse(body).error
+                    'results': JSON.parse(body)
                 }
                 // res.send(results);
+                // res.send('req.session: ', req.session);
                 res.render('index', {'searchResults': results});
-            }
+            };
         });
     }
-};
+}
