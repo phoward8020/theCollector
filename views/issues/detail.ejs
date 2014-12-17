@@ -1,9 +1,17 @@
+<% include ../partials/header.ejs %>
+
 <h1>Issue Detail</h1>
 
 <% if (typeof searchResults != 'undefined') { %>
-<%= searchResults.results.id %>
-<%= searchResults.results.name %>
+Volume: <%= searchResults.results.volume.name %> <br>
+Number: <%= searchResults.results.issue_number %> <br>
+Cover Date: <%= searchResults.results.cover_date %> <br>
+Store Date: <%= searchResults.results.store_date %> <br>
+Name: <%= searchResults.results.name %> <br>
+Description: <%= searchResults.results.description %> <br>
+<img src="<%= searchResults.results.image.medium_url %>" alt="">
 <% } else { %>
 <h2>Error: No Issue Found</h2>
 <% } %>
         
+// <% include ../partials/footer.ejs %>

@@ -26,7 +26,7 @@ module.exports = {
                             email: user.email,
                             name: user.name_first
                 };
-                res.redirect('users/:id/edit/');
+                res.redirect('../users/'+ user.id +'/edit/');
             }
         })
         .catch(function(error) {

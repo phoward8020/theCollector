@@ -6,4 +6,23 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="page-header">
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1">
+            <h1>The Collector <small>(Under Construction)</small></h1>
+        </div>
+        <div class="col-sm-5">
+            <% if(user) { %>
+                You are logged in as: <b><%= typeof user.email === 'string' ? user.email : 'Unknown' %></b>.
+                <a href="/auth/logout" class="btn btn-primary btn-lg active pull-right" role="button">Logout</a>
+            <% } else { %>
+                <!-- vvv This needs to toggle Sign Up / Login area on index page -->
+                <a href="#" class="btn btn-primary btn-lg active pull-right" role="button">Sign Up / Login</a>
+            <% } %>
+        </div>
+    </div>
+
+</div>
+
 <% include alerts %>
+

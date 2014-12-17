@@ -5,9 +5,10 @@ var debug       = require('debug')
 
 module.exports = {
     get_index : function(req, res) {
-        debug('>> Routing to /');
-        
         var user = req.getUser();
+        // if (!user) {
+        //     res.send("Oops! Can't req.getUser(). [Home/get_index]")
+        // };
         if (typeof searchResults != 'undefined') {
             res.send(searchResults);
         }
@@ -16,6 +17,10 @@ module.exports = {
     },
 
     post_index : function(req, res) {
+        var user = req.getUser();
+        if (!user) {
+            res.send("Oops! Can't req.getUser(). [Home/post_index]")
+        };
         var options = {
             'filterValue':req.body.searchTerms
         }
@@ -27,7 +32,7 @@ module.exports = {
                     'results': JSON.parse(body).results,
                     'error': JSON.parse(body).error
                 };
-                res.render('index', {'searchResults': results});
+                res.render('index', {'searchResults': results, 'user':user});
             } else {
                 res.send('No testResuls! You fucked up! ', error);
             }

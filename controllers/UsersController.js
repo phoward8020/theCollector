@@ -7,12 +7,13 @@ module.exports = {
         res.render('users/index')
     },
 
-    get_edit : function(req, res) {
+    get_id_edit : function(req, res, id) {
         // Display form for users to add/edit personal details.
-        res.render('users/edit')
+        var user = req.getUser();
+        res.render('users/edit', {'user': user});
     },
 
-    post_edit : function(req, res) {
+    post_id_edit : function(req, res) {
         // Handle updates from user details form.
         res.redirect('users/index')
     }

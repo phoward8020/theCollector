@@ -6,7 +6,9 @@ var debug       = require('debug')
 module.exports = {
     get_index : function(req, res, id) {
         var user = req.getUser();
-
+        if (!user) {
+            res.send("Oops! Can't req.getUser(). [Issues/get_index]")
+        };
         //  Get issue info from API and send to view
         var options = {
             searchField:'issue',
@@ -20,7 +22,7 @@ module.exports = {
                     'results': JSON.parse(body).results,
                     'error': JSON.parse(body).error
                 };
-                res.render('issues/detail', {'searchResults': results});
+                res.render('issues/detail', {'searchResults': results, 'user': user});
             } else {
                 res.send('No testResuls! You fucked up! ', error);
             }
