@@ -1,0 +1,9 @@
+<h1>Issue Detail</h1>
+
+<% if (typeof searchResults != 'undefined') { %>
+<%= searchResults.results.id %>
+<%= searchResults.results.name %>
+<% } else { %>
+<h2>Error: No Issue Found</h2>
+<% } %>
+        

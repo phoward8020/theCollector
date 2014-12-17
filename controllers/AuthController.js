@@ -5,7 +5,6 @@ var debug   = require('debug')
 module.exports = {
 
     post_signup : function(req, res) {
-        debug('>> Routing to /auth/signup (POST)');
         db.user.findOrCreate(
         {
             where: {
@@ -15,15 +14,22 @@ module.exports = {
                 email:req.body.email,
                 password:req.body.password
             }
-        }).spread(function(user, created) {
+        })
+        .spread(function(user, created) {
             if (!created) {
                 req.flash('danger', 'Email already exists in database!');
                 res.redirect('/');
             } else {
                 req.flash('info', 'User created successfully.');
-                res.redirect('/');
+                req.session.user = {
+                            id: user.id,
+                            email: user.email,
+                            name: user.name_first
+                };
+                res.redirect('users/:id/edit/');
             }
-        }).catch(function(error) {
+        })
+        .catch(function(error) {
             if (error && Array.isArray(error.errors)) {
                 error.errors.forEach(function(errorItem) {
                     req.flash('danger', errorItem.message);
@@ -68,6 +74,15 @@ module.exports = {
         });
         //user is logged in forward them to the home page
         // res.redirect('/');
-    }   // << End 'post_login'
+    },   // << End 'post_login'
+
+//logout
+//sign up form
+get_logout : function(req, res) {
+    // res.send('logged out');
+    delete req.session.user;
+    req.flash('info', 'You have been logged out.')
+    res.redirect('/');
+}
 
 }

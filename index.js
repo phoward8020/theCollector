@@ -27,14 +27,14 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(flash());
-
 app.use(function(req, res, next) {
     req.getUser = function() {
         return req.session.user || false;
     }
     next();
-})
+});
+
+app.use(flash());
 
 app.use('*', function(req, res, next) {
     var alerts = req.flash();

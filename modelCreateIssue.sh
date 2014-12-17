@@ -15,8 +15,8 @@ api_detail_url:STRING,\
 issue_number:INTEGER,\
 name:STRING,\
 aliases:TEXT,\
-date_cover:DATETIME,\
-date_store:DATETIME,\
+date_cover:DATE,\
+date_store:DATE,\
 deck:TEXT,\
 description:TEXT,\
 image_url_tiny:STRING,\
@@ -26,6 +26,6 @@ image_url_small:STRING,\
 image_url_medium:STRING,\
 image_url_super:STRING,\
 image_url_screen:STRING,\
-date_added:DATETIME,\
-date_updated:DATETIME\
+date_added:DATE,\
+date_updated:DATE\
 "

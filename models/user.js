@@ -57,14 +57,14 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     hooks: {
-          beforeCreate: function(data, garbage, callback) {
-            var passwordToEncrypt = data.password;
-            bcrypt.hash(passwordToEncrypt, 10, function(err, hash) {
-              data.password = hash;
-              callback(null, data);
-            })
-          }
+      beforeCreate: function(data, garbage, callback) {
+        var passwordToEncrypt = data.password;
+        bcrypt.hash(passwordToEncrypt, 10, function(err, hash) {
+          data.password = hash;
+          callback(null, data);
+        })
       }
+    }
   });
 
   return user;
