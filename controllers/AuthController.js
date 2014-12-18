@@ -1,10 +1,12 @@
 var debug   = require('debug')
   , bcrypt  = require('bcrypt')
-  , db      = require("../models/index.js");
+  , db      = require("../models/index.js")
+  , async   = require('async');
 
 module.exports = {
 
     post_signup : function(req, res) {
+        //  Create New User record in database
         db.user.findOrCreate(
         {
             where: {
@@ -26,7 +28,47 @@ module.exports = {
                             email: user.email,
                             name: user.name_first
                 };
-                res.redirect('../users/'+ user.id +'/edit/');
+                async.series([
+                    // Create new user's collection & wishlist
+                    // then redirect to /users/:id/edit/
+                    function(callback) {
+                        console.log('\n>>>>>>>>> Attempting to create My Collection for userId ' + user.id);
+                        db.collection.findOrCreate({
+                            where: {
+                                userId: user.id,
+                                collection_type: 0
+                            },
+                            defaults: {
+                                userId: user.id,
+                                collection_type: 0,
+                                name: 'My Collection'
+                            }
+                        })
+                        .spread(function(collection, created) {
+                            if (created) {
+                                console.log('\n>>>>>>>>> Created My Collection for userId ' + user.id);
+                            } else {
+                                console.log('\n>>>>>>>>> Failed to create My Collection for userId ' + user.id);                            
+                            }
+                        })
+                        .catch(function(error) {
+                            if (error && Array.isArray(error.errors)) {
+                                error.errors.forEach(function(errorItem) {
+                                    req.flash('danger', errorItem.message);
+                                    debug('>>>>> ERROR: ', errorItem.message);
+                                })
+                            } else {
+                                req.flash('danger', 'Unknown error')
+                            };
+                            // res.redirect('/');
+                        })
+                        callback(err, 'success');
+                    },
+                ],
+                    function(err, results) {
+                        res.redirect('../users/'+ user.id +'/edit/');
+                    }
+                )
             }
         })
         .catch(function(error) {
