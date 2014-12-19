@@ -2,14 +2,21 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-5 col-sm-offset-1">
-            <h1>User Details</h1>
-            <form action="users/edit" method="post">
-                form goes here...
-                <input type="submit">
-            </form>
+        <div class="col s12">
+            <h4>My Collection</h4>
         </div>
     </div>
+    <div class="row">
+        <!-- spacer -->
+    </div>
+    <% if (typeof collectionData != 'undefined') { %>
+        <!-- // Loop thru collectionData here to show collection -->
+        <% collectionData.forEach(function(item) { %>
+            <%= item.issueId %>
+        <% }) %>
+    <% } else { %>
+        Nothing saved to this collection!
+    <% } %>
 </div>
 
 <% include ../partials/footer.ejs %>

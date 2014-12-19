@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 app.use(flash());
 
 app.use('*', function(req, res, next) {
-  // REMOVE
+// HARD-CODE USER FOR TESTING
 //     req.session.user = {
 // id: 26,
 // email: "m@example.com",
@@ -51,4 +51,4 @@ app.use('*', function(req, res, next) {
     next();
 });
 
-app.listen(3001);
+app.listen(process.env.PORT || 3001);

@@ -16,10 +16,17 @@
     <script>$(function(){$('.modal-trigger').leanModal();});</script>
     <!-- Import Masonry.js -->
     <script type="text/javascript" src="js/masonry.pkgd.js"></script>
+    <!-- Import other random stuff -->
+    <script type="text/javascript" src="js/main.js"></script>
     <script>
         $('#container').imagesLoaded( function() {
           // images have loaded
         });
+
+        $(document).ready(function(){
+            $('.tooltipped').tooltip({"delay": 50});
+        });
+
     </script>
 
 
@@ -31,18 +38,19 @@
     <header>
         <nav id="front-page-nav">
         <div class="container">
-        <div class="nav-wrapper">
-            <a href="/" class="logo brown-text accent-1 darken-4">The Collector</a>
+            <div class="nav-wrapper">
+                <a href="/" class="logo brown-text accent-1 darken-4">The Collector</a>
                 <ul class="right tk-lint-mccree">
                     <% if (user) { %>
                         <!-- <li>You are logged in as: <b><%= typeof user.email === 'string' ? user.email : 'Unknown' %></b>. -->
                         <li><a href="/auth/logout" class="btn active pull-right brown darken-2 waves-effect waves-light" role="button">Logout</a></li>
                     <% } else { %>
-                        <!-- vvv This needs to toggle Sign Up / Login area on index page -->
-                        <li><a class="pull-right brown darken-2 waves-effect waves-light btn modal-trigger" href="#login">Log In</a></li>
+                        <li><a class="pull-right btn-flat modal-trigger" href="#login">Log In</a></li>
                         <li><a class="pull-right brown darken-2 waves-effect waves-light btn modal-trigger" href="#signup">Sign Up</a></li>
                     <% } %>
                 </ul>
+            </div>
+
             <!-- Signup Form (Modal) -->
             <div id="signup" class="modal">
             <h4 class="small">Create An Account</h4>
@@ -54,13 +62,12 @@
                 <button class="btn waves-effect waves-light right" type="submit" name="action">
                     Sign Me Up!
                 </button>
-                <a href="#" class="btn modal-close right">Nope</a>
             </form>
             </div>
 
             <!-- Login Form (Modal) -->
             <div id="login" class="modal">
-            <h3>Log In</h3>
+            <h4 class="small">Log In</h4>
             <form action="auth/login" method="post">
                 <input type="email" class="form-control" placeholder="Your Email" name="email">
                 <input type="password" class="form-control" placeholder="Your password" name="password">

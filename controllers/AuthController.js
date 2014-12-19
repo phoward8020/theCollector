@@ -79,8 +79,8 @@ module.exports = {
                                 collectionId: data[0].id,
                                 wishlistId: data[1].id
                             };
-                            res.send(req.session.user);
-                            // res.redirect("/");
+                            // res.send(req.session.user);
+                            res.redirect("/");
                             
                         });
                     } else {

@@ -6,12 +6,38 @@ var debug       = require('debug')
 module.exports = {
     get_index : function(req, res) {
         var user = req.getUser();
-        // if (!user) {
-        //     res.send("Oops! Can't req.getUser(). [Home/get_index]")
-        // };
-        if (typeof searchResults != 'undefined') {
-            res.send(searchResults);
-        }
+        // if (typeof searchResults != 'undefined') {
+        //     res.send(searchResults);
+        // }
+        // var searchURL = comicVine.buildSearchURL(comicVine.upcomingAndRecent());
+        // // I think we need a callback/promise here???
+        // comicVine.queryAPI(searchURL, function (error, response, body) {
+        //     if (!error && response.statusCode == 200) {
+        //         var results = {
+        //             'results': JSON.parse(body).results,
+        //             'error': JSON.parse(body).error
+        //         };
+        //         res.render('index', {'upcomingReleases': results, 'user':user});
+        //     } else {
+        //         res.send('No Results! You f*cked up! ', error);
+        //     }
+        // })
+
+        //  VVV SAVED FOR POSTERITY? VVV
+        // var searchURL = comicVine.buildSearchURL(comicVine.upcomingAndRecent());
+        // // I think we need a callback/promise here???
+        // comicVine.queryAPI(searchURL, function (error, response, body) {
+        //     if (!error && response.statusCode == 200) {
+        //         var results = {
+        //             'results': JSON.parse(body).results,
+        //             'error': JSON.parse(body).error
+        //         };
+        //         res.render('index', {'upcomingReleases': results, 'user':user});
+        //     } else {
+        //         res.send('No Results! You f*cked up! ', error);
+        //     }
+        // })
+
         // res.send(req.body);
         res.render('index', {'user':user});
     },
@@ -34,7 +60,7 @@ module.exports = {
                 };
                 res.render('index', {'searchResults': results, 'user':user});
             } else {
-                res.send('No testResuls! You fucked up! ', error);
+                res.send('No testResuls! You f*cked up! ', error);
             }
         })
     }

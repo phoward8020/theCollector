@@ -15,18 +15,26 @@
             </div>
         <div class="card-action">
             <div class="row">
+                <% if (user) { %>
                 <div class="col s12 m6 center">
                     <form action="/collections/<%= user.collectionId %>/<%= searchResults.results.id %>" method="post">
-                    <!-- <a href="#">Got It!</a> -->
-                    <input type="submit" value="Got it">
+                        <button type="submit" name="action" class="btn waves-effect waves-light tooltipped" data-tooltip="Adds this issue to your Collection" data-position="bottom">
+                            Got It!
+                        </button>
                     </form>
                 </div>
                 <div class="col s12 m6 center">
-                              <form action="/collections/<%= user.wishlistId %>/<%= searchResults.results.id %>" method="post">
-                    <!-- <a href="#">Got It!</a> -->
-                    <input type="submit" value="Want it">
+                    <form action="/collections/<%= user.wishlistId %>/<%= searchResults.results.id %>" method="post">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            Want It!
+                        </button>
                     </form>
                 </div>
+                <% } else { %>
+                <div class="col s12 center">
+                    <p>Sign up or log in now to add this issue to your Collection!</p>
+                </div>
+                <% } %>    
             </div>
         </div>
             <div class="col s12 m4">

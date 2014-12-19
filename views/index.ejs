@@ -4,30 +4,47 @@
         <!-- Search Form -->
         <div class="row">
         <div class="col s12">
+          <div class="row">&nbsp;</div>
             <form action="/" method="post">
+              <div class="row">
+              <div class="col s12 m8">
                 <input type="text" class="form-control" placeholder="Search by Issue Name" name='searchTerms'>
-            <!-- <input type="submit" class="btn btn-primary" placeholder="" value="Search"> -->
-            <button class="btn waves-effect waves-light right" type="submit" name="action">
-                Search
-                <i class="mdi-content-??? right"></i>
-            </button>
+              </div>
+              <div class="col s12 m4">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                    Search
+                    <i class="mdi-content-??? right"></i>
+                </button>
+              </div>
+              </div>
             </form>
         </div>
         </div>
 
+        <!-- The Pitch -->
+        <% if (!user || typeof searchResults === 'undefined') { %>
+        <div class="row">
+          <div class="col s12">
+            <h1 class="center">
+              ALL the comics. <br><br>
+              From <u>EVERY</u> universe. <br>
+            </h1>
+          </div>
+        </div>
+        <% } %>
+
         <!-- Comics! -->
         <div class="row">
         <hr>
+
         <div class="col s12">
-        Upcoming and Recent Releases
+        <!-- Upcoming and Recent Releases -->
         <div id="container" 
             class="js-masonry" 
             data-masonry-options='{ "columnWidth":200, "itemSelector":".card" }'>
 
         <% if (typeof searchResults != 'undefined') { %>
-        <% searchResults.results.forEach(function(element){ %>
-        <!-- <div class="row"> -->
-            <!-- <div class="col s12 m6"> -->
+            <% searchResults.results.forEach(function(element){ %>
               <div class="card">
                 <a href="/issues/<%= element.id %>">
                 <div class="card-image">
@@ -39,14 +56,49 @@
                 </div>
                 </a>
                 <div class="card-action">
-                  <a href="#">Add to My Collection</a>
-                  <a href='#'>Add to My Wishlist</a>
+            <div class="row">
+                <% if (user) { %>
+                <div class="col s12 m6 center">
+                    <form action="/collections/<%= user.collectionId %>/<%= searchResults.results.id %>" method="post">
+                        <button type="submit" name="action" class="btn-flat waves-effect waves-light tooltipped" data-tooltip="Adds this issue to your Collection" data-position="bottom" style="font-size:0.8rem; border: 1px solid black;">
+                            Got It!
+                        </button>
+                    </form>
+                </div>
+                <div class="col s12 m6 center">
+                    <form action="/collections/<%= user.wishlistId %>/<%= searchResults.results.id %>" method="post">
+                        <button class="btn-flat waves-effect waves-light" type="submit" name="action" style="font-size:0.8rem;border: 1px solid black;">
+                            Want It!
+                        </button>
+                    </form>
+                </div>
+                <% } else { %>
+                <div class="col s12 center">
+                    <p>Sign up or log in now to add this issue to your Collection!</p>
+                </div>
+                <% } %>    
+            </div>
                 </div>
               </div>
-
-<!--             </div>
-        </div> -->
-        <% }) %>
+            <% }) %>
+        <% } else if (typeof upcomingReleases != 'undefined') { %>
+            <% upcomingReleases.results.forEach(function(element){ %>
+              <div class="card">
+                <a href="/issues/<%= element.id %>">
+                <div class="card-image">
+                  <img src="<%= element.image.small_url %>">
+                  <span class="card-title"></span>
+                </div>  
+                <div class="card-content">
+                  <p class="card-title"><%= element.volume.name %> #<%= element.issue_number %></p>
+                </div>
+                </a>
+                <div class="card-action">
+                  <a href="#">Got It!</a>
+                  <a href='#'>Want It!</a>
+                </div>
+              </div>
+            <% }) %>
         <% } %>
         </div>
         </div>
@@ -54,5 +106,12 @@
 
         </div>
     </div>
+    <% if (user) { %>
+    <div class="row">
+      <div class="col s12">
+        <a href="users/<%= user.id %>">You are logged in as: <%= user.email %></a>
+      </div>
+    </div>
+    <% } %>
 </main>
 <% include partials/footer.ejs %>
