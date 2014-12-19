@@ -1,28 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>The Collector</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
+    <!-- Import Custom CSS to override questionabe choices made by the framework -->
+    <link type="text/css" rel="stylesheet" href="/css/custom.css"  media="screen,projection"/>
+    
+    <!-- Import jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Import Materialize js -->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>$(function(){$('.modal-trigger').leanModal();});</script>
+    <!-- Import Masonry.js -->
+    <script type="text/javascript" src="js/masonry.pkgd.js"></script>
+    <script>
+        $('#container').imagesLoaded( function() {
+          // images have loaded
+        });
+    </script>
+
+
+    <!-- Import Adobe Typekit -->
+    <script src="//use.typekit.net/gtt4lql.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
-<div class="page-header">
-    <div class="row">
-        <div class="col-sm-5 col-sm-offset-1">
-            <h1>The Collector <small>(Under Construction)</small></h1>
-        </div>
-        <div class="col-sm-5">
-            <% if(user) { %>
-                You are logged in as: <b><%= typeof user.email === 'string' ? user.email : 'Unknown' %></b>.
-                <a href="/auth/logout" class="btn btn-primary btn-lg active pull-right" role="button">Logout</a>
-            <% } else { %>
-                <!-- vvv This needs to toggle Sign Up / Login area on index page -->
-                <a href="#" class="btn btn-primary btn-lg active pull-right" role="button">Sign Up / Login</a>
-            <% } %>
-        </div>
-    </div>
+    <header>
+        <nav id="front-page-nav">
+        <div class="container">
+        <div class="nav-wrapper">
+            <a href="/" class="logo brown-text accent-1 darken-4">The Collector</a>
+                <ul class="right tk-lint-mccree">
+                    <% if (user) { %>
+                        <!-- <li>You are logged in as: <b><%= typeof user.email === 'string' ? user.email : 'Unknown' %></b>. -->
+                        <li><a href="/auth/logout" class="btn active pull-right brown darken-2 waves-effect waves-light" role="button">Logout</a></li>
+                    <% } else { %>
+                        <!-- vvv This needs to toggle Sign Up / Login area on index page -->
+                        <li><a class="pull-right brown darken-2 waves-effect waves-light btn modal-trigger" href="#login">Log In</a></li>
+                        <li><a class="pull-right brown darken-2 waves-effect waves-light btn modal-trigger" href="#signup">Sign Up</a></li>
+                    <% } %>
+                </ul>
+            <!-- Signup Form (Modal) -->
+            <div id="signup" class="modal">
+            <h4 class="small">Create An Account</h4>
+            <form action="auth/signup" method="post">
+                <input type="email" class="form-control" placeholder="Your Email" name="email">
+                <input type="password" class="form-control" placeholder="Choose a password" name="password">
+                <input type="password" class="form-control" placeholder="Re-type your password" name="password2">
+                <!-- <input type="submit" class="btn btn-primary right" placeholder="" value="Sign Me Up!"> -->
+                <button class="btn waves-effect waves-light right" type="submit" name="action">
+                    Sign Me Up!
+                </button>
+                <a href="#" class="btn modal-close right">Nope</a>
+            </form>
+            </div>
 
-</div>
+            <!-- Login Form (Modal) -->
+            <div id="login" class="modal">
+            <h3>Log In</h3>
+            <form action="auth/login" method="post">
+                <input type="email" class="form-control" placeholder="Your Email" name="email">
+                <input type="password" class="form-control" placeholder="Your password" name="password">
+                <!-- <input type="submit" class="btn btn-primary" placeholder="" value="Log Me In!"> -->
+                <button class="btn waves-effect waves-light right" type="submit" name="action">
+                    Log Me In!
+                    <i class="mdi-content-??? right"></i>
+                </button>
+            </form>
+            </div>
+
+        </div>
+        </div>
+        </nav>
+
+
+    </header>
 
 <% include alerts %>
 

@@ -1,17 +1,46 @@
 <% include ../partials/header.ejs %>
-
-<h1>Issue Detail</h1>
-
-<% if (typeof searchResults != 'undefined') { %>
-Volume: <%= searchResults.results.volume.name %> <br>
-Number: <%= searchResults.results.issue_number %> <br>
-Cover Date: <%= searchResults.results.cover_date %> <br>
-Store Date: <%= searchResults.results.store_date %> <br>
-Name: <%= searchResults.results.name %> <br>
-Description: <%= searchResults.results.description %> <br>
-<img src="<%= searchResults.results.image.medium_url %>" alt="">
-<% } else { %>
-<h2>Error: No Issue Found</h2>
-<% } %>
-        
-// <% include ../partials/footer.ejs %>
+<main>
+    <div class="container card" id="issueDetail">
+        <% if (typeof searchResults != 'undefined') { %>
+        <div class="row">
+            <div class="row brown darken-3">
+                <div class="col s12">
+                <h1 class="center" style="margin:0.4rem 0 0.25rem 0";>
+                    <!-- TODO: Change property below to ".api_detail_url" when ready -->
+                    <a href="<%= searchResults.results.volume.site_detail_url %>">
+                        <%= searchResults.results.volume.name %>
+                    </a> #<%= searchResults.results.issue_number %>
+                </h1>
+                </div>
+            </div>
+        <div class="card-action">
+            <div class="row">
+                <div class="col s12 m6 center">
+                    <form action="/collections/<%= user.collectionId %>/<%= searchResults.results.id %>" method="post">
+                    <!-- <a href="#">Got It!</a> -->
+                    <input type="submit" value="Got it">
+                    </form>
+                </div>
+                <div class="col s12 m6 center">
+                              <form action="/collections/<%= user.wishlistId %>/<%= searchResults.results.id %>" method="post">
+                    <!-- <a href="#">Got It!</a> -->
+                    <input type="submit" value="Want it">
+                    </form>
+                </div>
+            </div>
+        </div>
+            <div class="col s12 m4">
+                <img src="<%= searchResults.results.image.medium_url %>" alt="" width="100%">
+        Cover Date: <%= searchResults.results.cover_date %> <br>
+            </div>
+            <div class="col s12 m8">
+                <h2><%= searchResults.results.name %></h2>
+        Description: <%- searchResults.results.description %> <br>
+            </div>
+        </div>
+        <% } else { %>
+        <h2>Error: No Issue Found</h2>
+        <% } %>
+    </div>        
+</main>
+<% include ../partials/footer.ejs %>

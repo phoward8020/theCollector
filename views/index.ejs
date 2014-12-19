@@ -1,59 +1,58 @@
 <% include partials/header.ejs %>
-
+<main>
     <div class="container">
-        
-        <div class="row">
-
-        <!-- Signup Form -->
-        <div class="col-sm-5 col-sm-offset-1">
-        <h2>Create An Account</h2>
-        <form action="auth/signup" method="post">
-            <input type="text" class="form-control" placeholder="Your Email" name="email">
-            <input type="password" class="form-control" placeholder="Choose a password" name="password">
-            <input type="password" class="form-control" placeholder="Re-type your password" name="password2">
-            <input type="submit" class="btn btn-primary" placeholder="" value="Sign Me Up!">
-        </form>
-        </div>
-
-        <!-- Login Form -->
-        <div class="col-sm-5">
-        <h2>Log In</h2>
-        <form action="auth/login" method="post">
-            <input type="text" class="form-control" placeholder="Your Email" name="email">
-            <input type="password" class="form-control" placeholder="Your password" name="password">
-            <input type="submit" class="btn btn-primary" placeholder="" value="Log Me In!">
-        </form>
-        </div>
-
         <!-- Search Form -->
         <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
-            <h2>Search <small>(Powered By Comic Vine)</small></h2>
+        <div class="col s12">
             <form action="/" method="post">
                 <input type="text" class="form-control" placeholder="Search by Issue Name" name='searchTerms'>
-            <input type="submit" class="btn btn-primary" placeholder="" value="Search">
+            <!-- <input type="submit" class="btn btn-primary" placeholder="" value="Search"> -->
+            <button class="btn waves-effect waves-light right" type="submit" name="action">
+                Search
+                <i class="mdi-content-??? right"></i>
+            </button>
             </form>
         </div>
         </div>
 
         <!-- Comics! -->
         <div class="row">
-        <div class="col-sm-10 col-sm-offset-1">
+        <hr>
+        <div class="col s12">
+        Upcoming and Recent Releases
+        <div id="container" 
+            class="js-masonry" 
+            data-masonry-options='{ "columnWidth":200, "itemSelector":".card" }'>
+
         <% if (typeof searchResults != 'undefined') { %>
         <% searchResults.results.forEach(function(element){ %>
-        <div>
-            <a href="/issues/<%= element.id %>">
-                <img src="<%= element.image.small_url %>" alt="">
-            </a><br>
-            <%= element.name %>
-        </div>
+        <!-- <div class="row"> -->
+            <!-- <div class="col s12 m6"> -->
+              <div class="card">
+                <a href="/issues/<%= element.id %>">
+                <div class="card-image">
+                  <img src="<%= element.image.small_url %>">
+                  <span class="card-title"></span>
+                </div>  
+                <div class="card-content">
+                  <p class="card-title"><%= element.volume.name %> #<%= element.issue_number %></p>
+                </div>
+                </a>
+                <div class="card-action">
+                  <a href="#">Add to My Collection</a>
+                  <a href='#'>Add to My Wishlist</a>
+                </div>
+              </div>
+
+<!--             </div>
+        </div> -->
         <% }) %>
         <% } %>
-
+        </div>
         </div>
         </div>
 
         </div>
     </div>
-
+</main>
 <% include partials/footer.ejs %>

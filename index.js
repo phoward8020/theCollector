@@ -37,6 +37,15 @@ app.use(function(req, res, next) {
 app.use(flash());
 
 app.use('*', function(req, res, next) {
+  // REMOVE
+//     req.session.user = {
+// id: 26,
+// email: "m@example.com",
+// name: null,
+// collectionId: 15,
+// wishlistId: 16
+// }
+
     var alerts = req.flash();
     res.locals.alerts = alerts;
     next();

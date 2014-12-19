@@ -1,0 +1,54 @@
+body {
+    background-color: #efebe9;
+    font-family: "lint-mccree";
+}
+
+nav {
+    background-color: #9f8151;
+}
+
+.logo {
+    font-family: "flood-std";
+    font-size: 2.8rem;
+}
+
+.btn {
+    background-color: #5e3f36;
+}
+
+#issueDetail {
+    font-family: "lint-mccree";
+}
+#issueDetail h1 {
+    font-weight: 700;
+    font-style: italic;
+    font-size: 1.2rem;
+}
+
+#issueDetail h2 {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 1.2rem;
+}
+
+footer {
+    background-color: #9f8151;    
+}
+
+.card {
+    width: 200px;
+    min-height: 500px;
+    box-shadow: none;
+    padding:10px;
+
+}
+
+.card-image{
+    height: 300px;
+
+}
+
+
+
+
+
